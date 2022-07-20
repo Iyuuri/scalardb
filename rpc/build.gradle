@@ -1,0 +1,42 @@
+plugins {
+    id 'com.google.protobuf' version '0.8.17'
+}
+
+dependencies {
+    api group: 'io.grpc', name: 'grpc-netty', version: "${grpcVersion}"
+    api group: 'io.grpc', name: 'grpc-protobuf', version: "${grpcVersion}"
+    api group: 'io.grpc', name: 'grpc-stub', version: "${grpcVersion}"
+    api group: 'io.grpc', name: 'grpc-services', version: "${grpcVersion}"
+}
+
+javadoc {
+    title = "Scalar DB RPC"
+}
+
+protobuf {
+    protoc { artifact = "com.google.protobuf:protoc:${protocVersion}" }
+    plugins {
+        grpc { artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}" }
+    }
+    generateProtoTasks {
+        all()*.plugins { grpc {} }
+    }
+    generatedFilesBaseDir = "$projectDir/src"
+}
+
+archivesBaseName = "scalardb-rpc"
+
+// plugin com.google.protobuf generates tasks in runtime so that we have do declare dependencies dynamically
+tasks.whenTaskAdded { t ->
+    if (t.name.equals('generateProto')) {
+        processResources.dependsOn += t
+        sourcesJar.dependsOn += t
+    }
+}
+
+// for archiving and uploading to maven central
+if (!project.gradle.startParameter.taskNames.isEmpty() &&
+        (project.gradle.startParameter.taskNames[0].endsWith('publish') ||
+                project.gradle.startParameter.taskNames[0].endsWith('publishToMavenLocal'))) {
+    apply from: 'archive.gradle'
+}

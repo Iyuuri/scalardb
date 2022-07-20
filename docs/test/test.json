@@ -1,0 +1,32 @@
+{
+    "test1.item":{
+        "transaction": true,
+        "partition-key":[
+            "id"
+        ],
+        "clustering-key":[],
+        "columns":{
+            "id": "TEXT",
+            "product_name": "TEXT",
+            "registration_date": "TEXT",
+            "is_sold": "INT",
+            "price": "INT",
+            "address": "TEXT"
+        }
+    },
+    "test2.item":{
+        "transaction": true,
+        "partition-key":[
+            "id"
+        ],
+        "clustering-key":[],
+        "columns":{
+            "id": "TEXT",
+            "product_name": "TEXT",
+            "registration_date": "TEXT",
+            "is_sold": "INT",
+            "price": "INT",
+            "address": "TEXT"
+        }
+    }
+}

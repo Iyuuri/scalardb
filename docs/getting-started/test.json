@@ -1,0 +1,17 @@
+{
+    "item":{
+        "transaction": true,
+        "partition-key":[
+            "id"
+        ],
+        "clustering-key":[],
+        "columns":{
+            "id": "TEXT",
+            "product_name": "TEXT",
+            "registration_date": "INT",
+            "sold_date": "INT",
+            "price": "INT",
+            "address": "TEXT"
+        }
+    }
+}

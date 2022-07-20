@@ -1,0 +1,90 @@
+buildscript {
+    repositories {
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+    }
+    dependencies {
+        classpath 'com.diffplug.spotless:spotless-plugin-gradle:5.14.0'
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+//    apply plugin: 'jacoco'
+    apply plugin: 'java-library-distribution'
+    apply plugin: 'com.diffplug.spotless'
+
+    project.version = '3.5.2'
+
+    ext {
+        guiceVersion = '5.0.1'
+        guavaVersion = '30.1-jre'
+        slf4jVersion = '1.7.30'
+        cassandraDriverVersion = '3.6.0'
+        azureCosmosVersion = '4.28.1'
+        jooqVersion = '3.13.2'
+        awssdkVersion = '2.17.69'
+        commonsDbcp2Version = '2.8.0'
+        mysqlDriverVersion = '8.0.22'
+        postgresqlDriverVersion = '42.3.3'
+        oracleDriverVersion = '19.8.0.0'
+        sqlserverDriverVersion = '8.4.1.jre8'
+        grpcVersion = '1.38.0'
+        protocVersion = '3.17.2'
+        protobufVersion = '3.17.2'
+        picocliVersion = '4.1.4'
+        scalarAdminVersion = '1.0.0'
+        dropwizardMetricsVersion = '4.2.2'
+        prometheusVersion = '0.12.0'
+        jettyVersion = '9.4.43.v20210629'
+        junitVersion = '4.12'
+        commonsLangVersion = '3.12.0'
+        assertjVersion = '3.9.1'
+        mockitoVersion = '3.12.4'
+        spotbugsVersion = '4.3.0'
+        errorproneVersion = '2.10.0'
+        errorproneJavacVersion = '9+181-r4173-1'
+        gsonVersion = '2.8.7'
+        log4jVersion = '2.17.1'
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    test {
+        maxHeapSize "512m"
+        testLogging.showStandardStreams = true
+    }
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    group = "com.scalar-labs"
+
+    java {
+        withJavadocJar()
+        withSourcesJar()
+    }
+
+    javadoc {
+        if (JavaVersion.current().isJava9Compatible()) {
+            options.addBooleanOption('html5', true)
+        }
+    }
+
+    distZip {
+        duplicatesStrategy DuplicatesStrategy.EXCLUDE
+    }
+
+    distTar {
+        duplicatesStrategy DuplicatesStrategy.EXCLUDE
+    }
+
+    installDist {
+        duplicatesStrategy DuplicatesStrategy.EXCLUDE
+    }
+}
