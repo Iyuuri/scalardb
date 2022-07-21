@@ -53,17 +53,7 @@ public class testMain {
         printUsageAndExit();
         return;
       }
-      int [] sold = test.getinstance(id);
-
-      if(sold[0]==1){
-        System.out.println("The item of " + id + " is sold in test.");
-      }
-      if(sold[1]==1){
-        System.out.println("The item of " + id + " is sold in yahoo.");
-      }
-      if(sold[0]==0 && sold[1]==0){
-        System.out.println("The item of " + id + " is now sell.");
-      }
+      test.getinstance(id);
       
     }
     test.close();

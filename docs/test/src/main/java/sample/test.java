@@ -30,7 +30,7 @@ public abstract class test {
   abstract void sold1(String id) throws Exception;
   abstract void sold2(String id) throws Exception;
 
-  abstract int [] getinstance(String id) throws Exception;
+  abstract void getinstance(String id) throws Exception;
 
   abstract void close();
 }

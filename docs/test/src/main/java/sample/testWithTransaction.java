@@ -50,7 +50,7 @@ public class testWithTransaction extends test {
       Get get = new Get(new Key(ID, id)).forNamespace(NAMESPACE2).forTable(TABLENAME);
       Optional<Result> result = tx.get(get);
       if(result.isPresent()){
-          System.out.println("this item is already selling.");
+          System.out.println("This item is already selling.");
       }
       else{
         // registrate item
@@ -126,7 +126,7 @@ public class testWithTransaction extends test {
     }
   }
   @Override
-  public int [] getinstance(String id) throws TransactionException {
+  public void getinstance(String id) throws TransactionException {
     // Start a transaction
     DistributedTransaction tx = manager.start();
 
@@ -138,17 +138,28 @@ public class testWithTransaction extends test {
       Optional<Result> result2 = tx.get(Get2);
       
       int [] sold = {0,0};
+  
       if (result.isPresent()) {
-          sold[0] = result.get().getValue(ISSOLD).get().getAsInt();
-        }
+        sold[0] = result.get().getValue(ISSOLD).get().getAsInt();
+      }
       if (result2.isPresent()) {
-          sold[1] = result2.get().getValue(ISSOLD).get().getAsInt();
+        sold[1] = result2.get().getValue(ISSOLD).get().getAsInt();
+      }
+      if(!result.isPresent()&&!result2.isPresent()){
+        System.out.println("The product is not selling.");
+      }else{
+        if(sold[0]==1){
+          System.out.println("The item of " + id + " is sold in test.");
         }
-
+        if(sold[1]==1){
+          System.out.println("The item of " + id + " is sold in yahoo.");
+        }
+        if(sold[0]==0 && sold[1]==0){
+          System.out.println("The item of " + id + " is now sell.");
+        }
+      }
       // Commit the transaction
       tx.commit();
-
-      return sold;
     } catch (Exception e) {
       tx.abort();
       throw e;
