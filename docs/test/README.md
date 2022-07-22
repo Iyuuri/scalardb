@@ -74,3 +74,5 @@ $ ../../gradlew run --args="-action add1 -regidate 20200701 -name Macbook -price
 $ ../../gradlew run --args="-action sold1 -id 01"
 $ ../../gradlew run --args="-action get_instance -id 01"
 ```
+
+When the function of sold1 and sold2 are executed simultaneously, the product is sold by one site, and in the other site the product cannot be sold.
